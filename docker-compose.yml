@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    image: erp-sma-frontend
+    ports:
+      - "3000:80"
+    environment:
+      # La API corre en el host (make run / docker compose del backend).
+      API_UPSTREAM: ${API_UPSTREAM:-http://host.docker.internal:8080}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
